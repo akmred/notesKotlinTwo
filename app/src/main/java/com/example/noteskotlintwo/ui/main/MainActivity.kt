@@ -1,10 +1,11 @@
-package com.example.noteskotlintwo
+package com.example.noteskotlintwo.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.noteskotlintwo.R
 
 class MainActivity : AppCompatActivity() {
 
