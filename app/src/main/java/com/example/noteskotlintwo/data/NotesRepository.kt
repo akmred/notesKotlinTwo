@@ -1,20 +1,53 @@
 package com.example.noteskotlintwo.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.noteskotlintwo.data.entity.Note
+import java.util.*
 
 object NotesRepository {
 
-    private val notes: List<Note> = listOf(
-            Note("first", "first text", 0xf3f06292.toInt()),
-            Note("second", "second text", 0xfff06092.toInt()),
-            Note("third", "third text", 0xfff06202.toInt()),
-            Note("forth", "forth text", 0xfff06102.toInt()),
-            Note("fifth", "fifth text", 0xfff06292.toInt()),
-            Note("sexth", "sexth text", 0xfff06222.toInt()),
-            Note("seventh", "seventh text", 0xfff11292.toInt()),
-            Note("ninth", "ninth text", 0xfff05592.toInt())
+    private val notesLiveData = MutableLiveData<List<Note>>()
+
+    private val notes: MutableList<Note> = mutableListOf(
+            Note(UUID.randomUUID().toString(),"first", "first text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"second", "second text", color = Note.Color.GREEN),
+            Note(UUID.randomUUID().toString(),"third", "third text", color = Note.Color.BLUE),
+            Note(UUID.randomUUID().toString(),"forth", "forth text", color = Note.Color.GREEN),
+            Note(UUID.randomUUID().toString(),"fifth", "fifth text", color = Note.Color.BLUE),
+            Note(UUID.randomUUID().toString(),"sexth", "sexth text", color = Note.Color.GREEN),
+            Note(UUID.randomUUID().toString(),"seventh", "seventh text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"ninth", "ninth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"first", "first text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"second", "second text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"third", "third text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"forth", "forth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"fifth", "fifth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"sexth", "sexth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"seventh", "seventh text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"second", "second text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"third", "third text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"forth", "forth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"fifth", "fifth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"sexth", "sexth text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"seventh", "seventh text", color = Note.Color.WHITE),
+            Note(UUID.randomUUID().toString(),"ninth", "ninth text", color = Note.Color.WHITE)
             );
 
+        fun saveNote(note: Note){
+                addOrReplace(note)
+                notesLiveData.value = notes
+        }
 
-    fun getNotes(): List<Note> = notes
+        fun addOrReplace(note: Note){
+                for(i in 0 until notes.size){
+                        if(notes[i] == note)
+                                notes[i] = note
+                        return
+                }
+                notes.add(note)
+        }
+
+
+    fun getNotes(): LiveData<List<Note>> = notesLiveData
 }
