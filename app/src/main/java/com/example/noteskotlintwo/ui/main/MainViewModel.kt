@@ -12,8 +12,12 @@ class MainViewModel: ViewModel() {
 
     init {
 
+        NotesRepository.getNotes().observeForever {
 
-        viewStateLiveData.value = MainViewState(NotesRepository.getNotes())
+            viewStateLiveData.value = viewStateLiveData.value?.copy(notes = it)?: MainViewState(it)
+
+        }
+
     }
 
 
