@@ -111,9 +111,10 @@ class NoteActivity : AppCompatActivity() {
             text = bodyEt.text.toString(),
             lastChanged = Date()
                 // если с нуля заметку вводим, то создаем новую заметку
-        )?: Note(UUID.randomUUID().toString(), title = titleEt.text.toString(),
+        )?: Note(id = UUID.randomUUID().toString(), title = titleEt.text.toString(),
         text = bodyEt.text.toString())
 
+        viewModel.save(note!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId) {
