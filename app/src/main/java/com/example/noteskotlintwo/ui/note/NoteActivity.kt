@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noteskotlintwo.R
 import com.example.noteskotlintwo.data.entity.Note
 import com.example.noteskotlintwo.data.entity.Note.Color.*
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_note.*
 import java.text.SimpleDateFormat
@@ -40,6 +42,9 @@ class NoteActivity : AppCompatActivity() {
 
     lateinit var viewModel: NoteViewModel
 
+    lateinit var titleEt: TextInputEditText
+    lateinit var bodyEt: EditText
+
     val textChangeListener = object : TextWatcher{
         override fun afterTextChanged(s: Editable?) {
 
@@ -62,42 +67,52 @@ class NoteActivity : AppCompatActivity() {
         note = intent.getParcelableExtra(EXTRA_NOTE)
 
         viewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
+
+        titleEt = findViewById(R.id.titleEt)
+        bodyEt = findViewById(R.id.bodyEt)
+
+        initView()
+
         supportActionBar?.title = note?.let {
             SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(it.lastChanged)
         } ?:let {
             getString(R.string.note_new)
         }
 
-         fun initView(){
-            note?.let {
-                et_title.setText(it.title ?: "")
-                et_body.setText(it.text)
-                val color:Int = when(it.color){
-                    Note.Color.WHITE -> R.color.color_white
-                    Note.Color.YELLOW -> R.color.color_yello
-                    Note.Color.GREEN -> R.color.color_green
-                    Note.Color.BLUE -> R.color.color_green
-                    Note.Color.VIOLET -> R.color.color_violet
-                }
+    }
 
-                toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+    fun initView(){
+        note?.let {
+            titleEt.setText(it.title ?: "")
+            bodyEt.setText(it.text)
+            val color:Int = when(it.color){
+                Note.Color.WHITE -> R.color.color_white
+                Note.Color.YELLOW -> R.color.color_yello
+                Note.Color.GREEN -> R.color.color_green
+                Note.Color.RED -> R.color.color_red
+                Note.Color.BLUE -> R.color.color_green
+                Note.Color.VIOLET -> R.color.color_violet
             }
 
-            et_title.addTextChangedListener(textChangeListener)
-            et_body.addTextChangedListener(textChangeListener)
-
+            toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
         }
+
+        titleEt.addTextChangedListener(textChangeListener)
+        bodyEt.addTextChangedListener(textChangeListener)
+
     }
 
     fun saveNote() {
-        if (!et_title.text.isNullOrBlank()) return
+        if (titleEt.text.isNullOrBlank()) return
 
+        // если заметка существует, то обновляем текущую
         note = note?.copy(
-            title = et_title.text.toString(),
-            text = et_body.text.toString(),
+            title = titleEt.text.toString(),
+            text = bodyEt.text.toString(),
             lastChanged = Date()
-        )?: Note(UUID.randomUUID().toString(), title = et_title.text.toString(),
-        text = et_body.text.toString())
+                // если с нуля заметку вводим, то создаем новую заметку
+        )?: Note(UUID.randomUUID().toString(), title = titleEt.text.toString(),
+        text = bodyEt.text.toString())
 
     }
 

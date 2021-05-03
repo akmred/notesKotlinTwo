@@ -45,6 +45,7 @@ class NotesRVAdapter(val onItemClick: ((Note) -> Unit)? = null) : RecyclerView.A
                 Note.Color.YELLOW -> R.color.color_yello
                 Note.Color.GREEN -> R.color.color_green
                 Note.Color.BLUE -> R.color.color_green
+                Note.Color.RED -> R.color.color_red
                 Note.Color.VIOLET -> R.color.color_violet
             }
             // todo itemView добавил
