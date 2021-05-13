@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "390237100141",
+    "project_id": "noteskotlintwo",
+    "storage_bucket": "noteskotlintwo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390237100141:android:4142a44e82cccf7c398764",
+        "android_client_info": {
+          "package_name": "com.example.noteskotlintwo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390237100141-fvp42asa3dfr3rkuj7dqu7vdifml54vb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-zS4zsMJe4JtObjIMvCCHciXufy-1-TI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390237100141-fvp42asa3dfr3rkuj7dqu7vdifml54vb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
